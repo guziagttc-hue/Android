@@ -98,15 +98,15 @@ fun TypingTestScreen(viewModel: TypingViewModel, state: TypingState, onFinish: (
             text = buildAnnotatedString {
                 state.quote.forEachIndexed { index, char ->
                     val color = when {
-                        index >= state.userInput.length -> Color.Unspecified
-                        state.userInput[index] == char -> Color(0xFF2ECC71)
-                        else -> Color(0xFFE74C3C)
+                        index >= state.userInput.length -> MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
+                        state.userInput[index] == char -> Color(0xFF2ECC71) // Correct
+                        else -> Color(0xFFE74C3C) // Incorrect
                     }
-                    withStyle(SpanStyle(color = color)) { append(char) }
+                    withStyle(SpanStyle(color = color, fontFamily = androidx.compose.ui.text.font.FontFamily.Monospace)) { append(char) }
                 }
             },
             style = MaterialTheme.typography.headlineSmall,
-            modifier = Modifier.padding(16.dp)
+            modifier = Modifier.padding(16.dp).fillMaxWidth()
         )
 
         OutlinedTextField(
